@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="vip.wente.wtsystem.dao.UserDao" >
+    <!--Integer add(User user);-->
+    <insert id="add" parameterType="vip.wente.wtsystem.entity.User" useGeneratedKeys="true" keyProperty="id">
+        insert into
+			sys_users
+			(username,password,salt,email,mobile,valid,createdTime,modifiedTime,
+			createdUser,modifiedUser)
+		values
+			(#{username},#{password},#{salt},#{email},#{mobile},
+			#{valid},#{createdTime},#{modifiedTime},#{createdUser},#{modifiedUser});
+    </insert>
+	<!--User getUserByName(String username);-->
+	<select id="getUserByName" resultType="vip.wente.wtsystem.entity.User">
+		select
+			   id,username,password,salt,email,mobile,valid,createdTime,modifiedTime,
+			   createdUser,modifiedUser
+		from
+			 sys_users
+		where
+			username=#{username}
+	</select>
+</mapper>

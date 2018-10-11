@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+
+spring:
+  datasource:
+      name: mytest
+      url: jdbc:mysql://localhost/mytest?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+      username: root
+      password: a.......
+      initSize: 3
+      maxSize: 3
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: cn.tedu.fourteen.entity  # 注意：对应实体类的路径
+  # 开启驼峰映射
+ # configuration.map-underscore-to-camel-case: true
+
