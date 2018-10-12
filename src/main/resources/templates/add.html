@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+       <form action="/user/handle_add" method="post">
+           用户名：<input type="text" name="username"><br>
+           密码：<input type="password" name="password"><br>
+          角色： <select name="role">
+               <option value ="经理" name="jl">经理</option>
+               <option value ="收银"  name="sy">收银</option>
+               <option value="员工"  name="yg">员工</option>
+           </select><br>
+           <input type="submit" value="提交">
+       </form>
+
+</body>
+</html>
