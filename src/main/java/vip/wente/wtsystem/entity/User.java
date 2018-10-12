@@ -1,5 +1,6 @@
 package vip.wente.wtsystem.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,11 +10,13 @@ import java.util.Date;
  * @create: 2018-10-09 15:46
  **/
 
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = -4935243293906812580L;
     private Integer id;
     private String username;
     private String password;
     private String role;
+    private Integer shopNumber;
     private String email;
     private String mobile;
     private String salt;
@@ -29,6 +32,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Integer getShopNumber() {
+        return shopNumber;
+    }
+
+    public void setShopNumber(Integer shopNumber) {
+        this.shopNumber = shopNumber;
     }
 
     public Integer getId() {
@@ -105,6 +116,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", shopNumber=" + shopNumber +
                 ", email='" + email + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", salt='" + salt + '\'' +

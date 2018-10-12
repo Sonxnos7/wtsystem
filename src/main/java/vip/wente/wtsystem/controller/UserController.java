@@ -51,22 +51,20 @@ public class UserController {
      * 处理注册用户业务
      * @param username
      * @param password
-     * @param session
      * @return
      */
     @RequestMapping(value = "/handle_add",method = RequestMethod.POST)
     @ResponseBody
-    public  ResponseResult<Void> reg(String username, String password, String role,HttpSession session){
+    public  ResponseResult<Void> reg(String username, String password, String role,Integer shopNumber){
         ResponseResult<Void> rr;
         User user=new User();
         user.setUsername(username);
         user.setPassword(password);
         user.setRole(role);
+        user.setShopNumber(shopNumber);
         try {
              User u=userService.addUser(user);
             System.out.println(u);
-            session.setAttribute("uid", u.getId());
-            session.setAttribute("uname", u.getUsername());
             rr=new ResponseResult<Void>( ResponseResult.STAT_OK);
             System.out.println("注册成功！");
         } catch (UsernameConflictException e) {
@@ -83,7 +81,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/handle_login",method = RequestMethod.POST)
-    public String handle_login(String username, String password){
+    public String handle_login(String username, String password,HttpSession session){
         Subject currentUser = SecurityUtils.getSubject();
         if(!currentUser.isAuthenticated()){
             // 把用户名和密码封装为 UsernamePasswordToken 对象
@@ -93,6 +91,7 @@ public class UserController {
                 currentUser.login(token);
                 // 判断当前用户是否登录
                 if (currentUser.isAuthenticated() == true) {
+
                     return "index";
                 }
             }catch (IncorrectCredentialsException e) {
