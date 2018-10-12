@@ -10,7 +10,11 @@ spring:
       password: a.......
       initSize: 3
       maxSize: 3
-
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+    static-path-pattern: /static/**
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
