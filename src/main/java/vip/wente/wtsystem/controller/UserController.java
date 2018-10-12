@@ -75,6 +75,13 @@ public class UserController {
 
         return rr;
     }
+
+    /**
+     * 处理用户登录业务
+     * @param username
+     * @param password
+     * @return
+     */
     @RequestMapping(value = "/handle_login",method = RequestMethod.POST)
     public String handle_login(String username, String password){
         Subject currentUser = SecurityUtils.getSubject();
@@ -97,4 +104,11 @@ public class UserController {
         return "error";
 
     }
+    @RequestMapping("/out")
+    public String loginOut(){
+        Subject currentUser = SecurityUtils.getSubject();
+        currentUser.logout();
+        return "login";
+    }
 }
+
