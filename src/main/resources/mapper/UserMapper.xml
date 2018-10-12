@@ -5,20 +5,21 @@
     <insert id="add" parameterType="vip.wente.wtsystem.entity.User" useGeneratedKeys="true" keyProperty="id">
         insert into
 			sys_users
-			(username,password,salt,email,mobile,valid,createdTime,modifiedTime,
+			(username,password,role,salt,email,mobile,valid,createdTime,modifiedTime,
 			createdUser,modifiedUser)
 		values
-			(#{username},#{password},#{salt},#{email},#{mobile},
+			(#{username},#{password},#{role},#{salt},#{email},#{mobile},
 			#{valid},#{createdTime},#{modifiedTime},#{createdUser},#{modifiedUser});
     </insert>
 	<!--User getUserByName(String username);-->
 	<select id="getUserByName" resultType="vip.wente.wtsystem.entity.User">
 		select
-			   id,username,password,salt,email,mobile,valid,createdTime,modifiedTime,
+			   id,username,password,role,salt,email,mobile,valid,createdTime,modifiedTime,
 			   createdUser,modifiedUser
 		from
 			 sys_users
 		where
 			username=#{username}
 	</select>
+
 </mapper>

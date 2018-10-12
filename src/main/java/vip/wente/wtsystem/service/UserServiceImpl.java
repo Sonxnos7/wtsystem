@@ -44,7 +44,7 @@ public class UserServiceImpl implements IUserService{
         //把密码加密
         String saltStr = UUID.randomUUID().toString();
         ByteSource salt = ByteSource.Util.bytes(saltStr);
-        String pwd = new SimpleHash("MD5",user.getPassword(),salt,1024).toHex();
+        String pwd = new SimpleHash("MD5",user.getPassword(),salt,1024).toString();
         System.out.println("md5pwd:"+pwd );
         user.setPassword(pwd);
         //保存uuid

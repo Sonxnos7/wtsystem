@@ -1,6 +1,7 @@
 package vip.wente.wtsystem.realm;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import vip.wente.wtsystem.entity.User;
 import vip.wente.wtsystem.exceptions.UsernameIsNll;
@@ -11,6 +12,9 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @program: fourteen
@@ -26,6 +30,16 @@ public class  MyRealm extends AuthorizingRealm {
     @Override
     //用户授权
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        //获取当前用户的用户名
+        String username=(String) principalCollection.getPrimaryPrincipal();
+        User user=userService.getUserByName(username);
+        if(user!=null){
+            //权限信息对象info,用来存放查出的用户的所有的角色（role）
+            SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
+            String role=user.getRole();
+            info.addRole(role);
+            return info;
+        }
         return null;
     }
 

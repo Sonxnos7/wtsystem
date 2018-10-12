@@ -13,6 +13,7 @@ public class User {
     private Integer id;
     private String username;
     private String password;
+    private String role;
     private String email;
     private String mobile;
     private String salt;
@@ -21,6 +22,15 @@ public class User {
     private String createdUser;
     private String modifiedUser;
     private Date modifiedTime;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -87,10 +97,22 @@ public class User {
     public void setModifiedTime(Date modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
+
     @Override
     public String toString() {
-        return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", mobile="
-                + mobile + ", salt=" + salt + ", valid=" + valid + ", createdTime=" + createdTime + ", createdUser="
-                + createdUser + ", modifiedUser=" + modifiedUser + ", modifiedTime=" + modifiedTime + "]";
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", salt='" + salt + '\'' +
+                ", valid=" + valid +
+                ", createdTime=" + createdTime +
+                ", createdUser='" + createdUser + '\'' +
+                ", modifiedUser='" + modifiedUser + '\'' +
+                ", modifiedTime=" + modifiedTime +
+                '}';
     }
 }

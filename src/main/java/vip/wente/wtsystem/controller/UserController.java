@@ -3,7 +3,6 @@ package vip.wente.wtsystem.controller;
 import vip.wente.wtsystem.entity.ResponseResult;
 import vip.wente.wtsystem.entity.User;
 import vip.wente.wtsystem.exceptions.UsernameConflictException;
-import vip.wente.wtsystem.service.UserServiceImpl;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -13,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import vip.wente.wtsystem.service.UserServiceImpl;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @program: fourteen
@@ -33,8 +34,8 @@ public class UserController {
      * @return
      */
     @RequestMapping("/add")
-    public String add(){
-       return "register";
+    public String add(Map map){
+        return "add";
     }
 
     /**
@@ -55,11 +56,12 @@ public class UserController {
      */
     @RequestMapping(value = "/handle_add",method = RequestMethod.POST)
     @ResponseBody
-    public  ResponseResult<Void> reg(String username, String password, HttpSession session){
+    public  ResponseResult<Void> reg(String username, String password, String role,HttpSession session){
         ResponseResult<Void> rr;
         User user=new User();
         user.setUsername(username);
         user.setPassword(password);
+        user.setRole(role);
         try {
              User u=userService.addUser(user);
             System.out.println(u);
@@ -74,14 +76,12 @@ public class UserController {
         return rr;
     }
     @RequestMapping(value = "/handle_login",method = RequestMethod.POST)
-    @ResponseBody
     public String handle_login(String username, String password){
         Subject currentUser = SecurityUtils.getSubject();
         if(!currentUser.isAuthenticated()){
             // 把用户名和密码封装为 UsernamePasswordToken 对象
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             try{
-                System.out.println("11111111");
                 //登录认证 - 调用userRealm
                 currentUser.login(token);
                 System.out.println("22222222");

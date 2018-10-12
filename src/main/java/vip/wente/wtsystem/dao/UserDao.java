@@ -4,7 +4,6 @@ import vip.wente.wtsystem.entity.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @program: fourteen
@@ -28,17 +27,7 @@ public  interface UserDao {
      * @return
      */
    User getUserByName(String username);
-    /**
-     * 查询用户得权限
-     * @param userId
-     */
-    List<String> findPermission(Integer userId);
 
-    /**
-     * 查询用户可见的菜单
-     * @param id
-     * @return
-     */
-    List<Map<String,Object>> menuList(Integer id);
+
 
 }
