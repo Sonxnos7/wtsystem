@@ -1,12 +1,7 @@
 package vip.wente.wtsystem.entity;
 
-import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
-import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
-import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import vip.wente.wtsystem.realm.MyRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -61,10 +56,10 @@ public class ShiroConfig {
         // 配置退出过滤器,具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
         //add操作，该用户必须有【addOperation】权限
-       filterChainDefinitionMap.put("/add", "authc");
+       // filterChainDefinitionMap.put("/add", "perms[addOperation]");
 
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问【放行】-->
-       //filterChainDefinitionMap.put("/**", "authc");
+        //filterChainDefinitionMap.put("/**", "authc");
 
         shiroFilterFactoryBean
                 .setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -118,32 +113,5 @@ public class ShiroConfig {
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
         return new LifecycleBeanPostProcessor();
     }
-
-    /**
-     *  开启shiro aop注解支持.
-     *  使用代理方式;所以需要开启代码支持;
-     *  开启 权限注解
-     *  Controller才能使用@RequiresPermissions
-     * @param securityManager
-     * @return
-     */
-
-    @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
-        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-        return authorizationAttributeSourceAdvisor;
-    }
-
-    /**
-     * 整合 thymeleaf标签
-     * @return
-     */
-    @Bean
-    public ShiroDialect shiroDialect() {
-
-        return new ShiroDialect();
-    }
-
 
 }
