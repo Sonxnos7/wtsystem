@@ -2,7 +2,6 @@ package vip.wente.wtsystem.realm;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import vip.wente.wtsystem.entity.User;
 import vip.wente.wtsystem.exceptions.UsernameIsNll;
 import vip.wente.wtsystem.service.IUserService;
@@ -13,8 +12,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @program: fourteen
