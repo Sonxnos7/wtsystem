@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{~/css/a.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
 <shiro:user>
-    欢迎[<shiro:principal/>]登录，<a href="/user/out">退出</a>
+    <a id="a1">欢迎[<shiro:principal/>]登录</a>，<a href="/user/out">退出</a>
 </shiro:user>
+<img id="a2" th:src="@{~/images/2.jpg}">
 <shiro:hasAnyRoles name="经理,管理员">经理和管理员可见</shiro:hasAnyRoles><br>
 
 </body>

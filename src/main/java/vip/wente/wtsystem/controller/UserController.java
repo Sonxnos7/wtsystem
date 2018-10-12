@@ -91,7 +91,6 @@ public class UserController {
             try{
                 //登录认证 - 调用userRealm
                 currentUser.login(token);
-                System.out.println("22222222");
                 // 判断当前用户是否登录
                 if (currentUser.isAuthenticated() == true) {
                     return "index";
