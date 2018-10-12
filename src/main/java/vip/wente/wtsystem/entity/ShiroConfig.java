@@ -61,10 +61,10 @@ public class ShiroConfig {
         // 配置退出过滤器,具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
         //add操作，该用户必须有【addOperation】权限
-       // filterChainDefinitionMap.put("/add", "perms[addOperation]");
+       filterChainDefinitionMap.put("/add", "authc");
 
         // <!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问【放行】-->
-       // filterChainDefinitionMap.put("/**", "authc");
+       //filterChainDefinitionMap.put("/**", "authc");
 
         shiroFilterFactoryBean
                 .setFilterChainDefinitionMap(filterChainDefinitionMap);

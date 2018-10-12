@@ -5,7 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-<shiro:hasRole name="经理">经理</shiro:hasRole><br>
-<a href="/user/out">退出</a>
+<shiro:user>
+    欢迎[<shiro:principal/>]登录，<a href="/user/out">退出</a>
+</shiro:user>
+<shiro:hasAnyRoles name="经理,管理员">经理和管理员可见</shiro:hasAnyRoles><br>
+
 </body>
 </html>
