@@ -11,6 +11,9 @@
 </shiro:user>
 <img id="a2" th:src="@{~/images/2.jpg}">
 <shiro:hasAnyRoles name="经理,管理员">经理和管理员可见</shiro:hasAnyRoles><br>
+<hr>
+<a th:href="@{/user/getAllUser}">查看所有员工</a><br>
+<a th:href="@{/user/getUserInfo(id=${session.uid})}">修改信息</a>
 
 </body>
 </html>

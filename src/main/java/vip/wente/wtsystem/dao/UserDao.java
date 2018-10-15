@@ -1,5 +1,6 @@
 package vip.wente.wtsystem.dao;
 
+import org.apache.ibatis.annotations.Param;
 import vip.wente.wtsystem.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -21,13 +22,28 @@ public  interface UserDao {
     Integer add(User user);
 
     /**
-     * 根据用户名查询用户
-     * @param username
-
+     * 根据条件查询用户
      * @return
      */
-   User getUserByName(String username);
+    List<User> select(
+            @Param("where") String where,
+            @Param("orderBy")String orderBy,
+            @Param("offset")Integer offset,
+            @Param("countPerPage")Integer countPerPage);
 
+    /**
+     * 修改用户信息
+     * @param user 至少封装了用户的id和用户的信息
+     * @return 受影响的行数
+     */
+    Integer update(User user);
 
+    /**
+     * 删除用户
+     * @param id
+     * @param shopNumber
+     * @return
+     */
+    Integer delete(@Param("id")Integer id,@Param("shopNumber") Integer shopNumber);
 
 }
