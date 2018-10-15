@@ -1,5 +1,6 @@
 package vip.wente.wtsystem.entity;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import vip.wente.wtsystem.realm.MyRealm;
@@ -112,6 +113,10 @@ public class ShiroConfig {
     @Bean
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
         return new LifecycleBeanPostProcessor();
+    }
+    @Bean
+    public ShiroDialect shiroDialect(){
+        return new ShiroDialect();
     }
 
 }
