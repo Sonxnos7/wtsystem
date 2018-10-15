@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="vip.wente.wtsystem.dao.RoomDao" >
+    <!--Integer addRoom(Room room);-->
+    <!--添加房间-->
+    <insert id="addRoom" parameterType="vip.wente.wtsystem.entity.Room" useGeneratedKeys="true" keyProperty="id">
+        insert into room(
+                shopNumber,
+                 roomNumber,
+                roomAmount,
+                roomStateID,
+                standardPriceDay,
+                createdTime,modifiedTime,
+                createdUser,modifiedUser
+                )values (
+               #{shopNumber},
+              #{roomNumber},
+              #{roomAmount},
+              #{roomStateID},
+              #{standardPriceDay},
+              now(),#{modifiedTime},
+              #{createdUser},#{modifiedUser}
+                          )
+    </insert>
+    <!-- List<Room> getRooms(@Param("where") String where, @Param("orderBy")String orderBy, @Param("offerset")Integer offerset, @Param("countPerpage")Integer countPerpage);;-->
+    <!--获取所有房间-->
+    <select id="getRooms" resultType="vip.wente.wtsystem.entity.Room">
+        select id, roomNumber,
+               roomAmount,shopNumber,
+               roomStateID,
+               standardPriceDay
+        from room
+        <if test="where!=null">where ${where}</if>
+        <if test="orderBy!=null">order by ${orderBy}</if>
+        <if test="offerset!=null">limit ${offerset},${countPerpage}</if>
+    </select>
+    <!--Integer update(Room room);-->
+    <!--修改房间信息-->
+    <update id="update">
+        update room
+        set roomNumber=#{roomNumber},roomStateID=#{roomStateID},standardPriceDay=#{standardPriceDay}
+        WHERE shopNumber=#{shopNumber}
+        <if test="id!=null">
+            and id=#{id}
+        </if>
+    </update>
+</mapper>
