@@ -103,7 +103,7 @@ public class UserController {
                     session.setAttribute("uid",uid);
                     session.setAttribute("uname",username);
                     session.setAttribute("shopNumber",shopNumber);
-                    return "index";
+                    return "main/main";
                 }
             }catch (IncorrectCredentialsException e) {
                 return "error";
@@ -185,7 +185,7 @@ public class UserController {
     public String loginOut(){
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.logout();
-        return "login";
+        return "login/login";
     }
 }
 

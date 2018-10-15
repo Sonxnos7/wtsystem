@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
 	<meta charset="UTF-8">
 		<title>欢迎使用酒店管理系统</title>
@@ -47,6 +47,9 @@
 							<i class="icon-leaf"></i>
 							欢迎使用酒店管理系统
 						</small>
+						<shiro:user>
+							<i id="a1">欢迎 [<shiro:principal/>]</i>，<a href="/user/out">退出</a>
+						</shiro:user>
 					</a><!--/.brand-->
 
 				</div><!--/.container-fluid-->

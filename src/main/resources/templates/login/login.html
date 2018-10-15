@@ -35,11 +35,11 @@
             <h4>用户登录</h4>
         </div>
         <div class="modal-body">
-            <form id="form1" class="form-horizontal" th:action="@{~/Login/tomain}">
+            <form id="form1" class="form-horizontal" th:action="@{~/user/handle_login}" method="post">
                 <div class="control-group">
                     <label class="control-label">用户名</label>
                     <div class="controls">
-                        <input name="userName" type="text">
+                        <input name="username" type="text">
                     </div>
                 </div>
                 <div class="control-group">
