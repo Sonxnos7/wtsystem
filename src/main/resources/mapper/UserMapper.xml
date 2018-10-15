@@ -5,21 +5,55 @@
 <insert id="add" parameterType="vip.wente.wtsystem.entity.User" useGeneratedKeys="true" keyProperty="id">
 	insert into
 	sys_users
-			(username,password,role,salt,email,mobile,valid,createdTime,modifiedTime,
+			(username,password,role, shopNumber,salt,email,mobile,valid,createdTime,modifiedTime,
 			 createdUser,modifiedUser)
 	values
-		   (#{username},#{password},#{role},#{salt},#{email},#{mobile},
+		   (#{username},#{password},#{role}, #{shopNumber},#{salt},#{email},#{mobile},
 			#{valid},#{createdTime},#{modifiedTime},#{createdUser},#{modifiedUser});
 </insert>
-<!--User getUserByName(String username);-->
-<select id="getUserByName" resultType="vip.wente.wtsystem.entity.User">
-	select
-		   id,username,password,role,salt,email,mobile,valid,createdTime,modifiedTime,
-		   createdUser,modifiedUser
-	from
-		 sys_users
-	where
-			username=#{username}
-</select>
+	<!-- 查询用户信息 -->
+	<!-- 	List<User> select(
+        @Param("where")String where,
+        @Param("orderBy")String orderBy,
+        @Param("offset")Integer offset,
+        @Param("countPerPage")Integer countPerPage); -->
+	<select id="select" resultType="vip.wente.wtsystem.entity.User">
+		select
+		id,
+		username,
+		password,
+		role,
+		shopNumber,
+		salt,
+		mobile,
+		email,
+		createdUser,
+		createdTime,
+		modifiedUser,
+		modifiedTime
+		from sys_users
+		<if test="where!=null">where ${where}</if>
+		<if test="orderBy!=null">order by ${orderBy}</if>
+		<if test="countPerPage!=null">limit ${countPerPage},${countPerPage}</if>
+	</select>
 
+	<!--  修改用户信息 -->
+	<!-- 	Integer update(User user); -->
+	<update id="update" parameterType="vip.wente.wtsystem.entity.User">
+		update sys_users
+		set
+		<if test="username!=null">username=#{username},</if>
+		<if test="password!=null">password=#{password},</if>
+		<if test="email!=null">email=#{email},</if>
+		<if test="mobile!=null">mobile=#{mobile},</if>
+		modifiedUser=#{modifiedUser},modifiedTime=#{modifiedTime}
+		where
+		id=#{id}
+	</update>
+
+	<!--删除员工信息-->
+	<!-- Integer delete(@Param("id")Integer id,@Param("shopNumber") Integer shopNumber);-->
+	<delete id="delete">
+		delete from sys_users where id=#{id} and shopNumber=#{shopNumber}
+	</delete>
 </mapper>
