@@ -6,7 +6,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-	  <meta charset="UTF-8">
+    
     <title></title>
     
 	<meta http-equiv="pragma" content="no-cache">
@@ -57,7 +57,7 @@
     float:left;
     }
     
-    .{
+    .inputtwo{
       width:46.8%;
     }
     
@@ -131,11 +131,9 @@
       width: 20%;
     }
     }
+    
     .yansered{
       color:red;
-    }
-    .yansegreen{
-      color:green;
     }
   
   </style>
@@ -149,7 +147,7 @@
     <div class="span11" style=" border: solid; border-color: #DDDDDD;">
     <div class="span9 margin-top-one">
       <div class="row-fluid">
-        <h3 style="text-align: center;">客房新增</h3>
+        <h3 style="text-align: center;">客房修改</h3>
       </div>
     </div>
     
@@ -159,14 +157,15 @@
       </fieldset>
     </div>
     
-    <form action="${ctx}/RoomSet/add.do" method="post" onsubmit="return verify()">
+    <form action="${ctx}/RoomSet/update.do" method="post" onsubmit="return verify()">
+	   <input type="hidden" name="id" value="${listPo.id}">
 	    <div class="span12 margin-top-two">
 	      <div class="row-fluid">
 		      <div class="span5">
 			   	  <label class="labelroomnumber marginrighttwo">房间号：</label>
-			      <input id="roomNumberId" name="roomNumber" class="textone inputone"
-			       style="height:26px;" type="text" onblur="YZ(this.value)" onchange="onchangeOne()">
-			       <div id="divOne">
+			      <input id="roomNumberId" name="roomNumber" class="textone inputone" onblur="YZ(this.value)"
+			       style="height:26px;" type="text" value="${listPo.roomNumber}" onchange="onchangeOne()">
+			      <div id="divOne" hidden>
 			         <label class="yansered" style="margin-top:18px;">*</label>
 			       </div>
 			  </div> 
@@ -174,7 +173,7 @@
 			   	  <label class="labelroomnumber marginrightone">房态：</label>
 			      <select name="roomStateID" class="cboone inputone">
 		            <c:forEach items="${listTwo}" var="item">
-			          <option value="${item.far_id}" <c:if test="${item.far_id==1}" >selected="selected"</c:if>>
+			          <option value="${item.far_id}" <c:if test="${item.far_id==listPo.roomStateID}" >selected="selected"</c:if>>
 			            ${item.attributeDetailsName}
 			          </option>
 			        </c:forEach> 
@@ -186,8 +185,9 @@
 	      <div class="row-fluid">
 		      <div class="span5">
 			   	  <label class="labelroomnumber marginrighttwo">床位数：</label>
-			      <input id="roomAmountId" name="roomAmount" class="textone inputone" style="height:26px;" type="text" onblur="onchangeOne()">
-			      <div id="divTwo">
+			      <input id="roomAmountId" name="roomAmount" class="textone inputone" 
+			      style="height:26px;" type="text" onblur="onchangeOne()" value="${listPo.roomAmount}">
+			      <div id="divTwo" hidden>
 			         <label class="yansered" style="margin-top:18px;">*</label>
 			       </div>
 			  </div> 
@@ -195,7 +195,7 @@
 			   	  <label class="labelroomnumber">客房等级：</label>
 			      <select name="guestRoomLevelID" class="cboone inputone">
 		            <c:forEach items="${listOne}" var="item">
-			          <option value="${item.far_id}" <c:if test="${item.far_id==8}">selected="selected"</c:if>>
+			          <option value="${item.far_id}" <c:if test="${item.far_id==listPo.guestRoomLevelID}">selected="selected"</c:if>>
 			            ${item.attributeDetailsName}
 			          </option>
 			        </c:forEach> 
@@ -211,9 +211,9 @@
 			   	  <div class="input-prepend" style="float:left;">
 			        <span class="add-on" style="margin-top: 12px; height: 16px;">&yen;</span>
 			      </div>
-			      <input id="standardPriceDayId" name="standardPriceDay" class="textone inputtwo radiusone" onblur="onchangeOne()"
+			      <input id="standardPriceDayId" name="standardPriceDay" class="textone inputtwo radiusone" onblur="onchangeOne()" value="${listPo.standardPriceDay}"
 			      style="float:left;border-radius:0px; border-top-right-radius:4px; border-bottom-right-radius:4px; height:26px;" type="text">
-			      <div id="divThree">
+			      <div id="divThree" hidden>
 			         <label class="yansered" style="margin-top:18px;">*</label>
 			      </div>
 			   </div> 
@@ -233,9 +233,9 @@
 			      <div class="input-prepend"  style="float:left;">
 			        <span class="add-on" style="margin-top: 12px; height: 16px;">&yen;</span>
 			      </div>
-			      <input id="standardPriceId" name="standardPrice" class="textone inputthree radiusone" onblur="onchangeOne()"
+			      <input id="standardPriceId" name="standardPrice" class="textone inputthree radiusone" onblur="onchangeOne()" value="${listPo.standardPrice}"
 			      style="float:left;border-radius:0px; border-top-right-radius:4px; border-bottom-right-radius:4px; height:26px;" type="text">
-			      <div id="divFour">
+			      <div id="divFour" hidden>
 			         <label class="yansered" style="margin-top:18px;">*</label>
 			      </div>
 			  </div> 
@@ -244,9 +244,9 @@
 			      <div class="input-prepend"  style="float:left;">
 			        <span class="add-on" style="margin-top: 12px; height: 16px;">&yen;</span>
 			      </div>
-			      <input id="maxDurationId" name="maxDuration" class="textone inputthree radiusone" onblur="onchangeOne()"
+			      <input id="maxDurationId" name="maxDuration" class="textone inputthree radiusone" onblur="onchangeOne()" value="${listPo.maxDuration}"
 			      style="float:left;border-radius:0px; border-top-right-radius:4px; border-bottom-right-radius:4px; height:26px;" type="text">
-			      <div id="divFive">
+			      <div id="divFive" hidden>
 			         <label class="yansered" style="margin-top:18px;">*</label>
 			      </div>
 			  </div>
@@ -259,9 +259,9 @@
 			      <div class="input-prepend"  style="float:left;">
 			        <span class="add-on" style="margin-top: 12px; height: 16px;">&yen;</span>
 			      </div>
-			      <input id="firstPriceId" name="firstPrice" class="textone inputthree radiusone" onblur="onchangeOne()"
+			      <input id="firstPriceId" name="firstPrice" class="textone inputthree radiusone" onblur="onchangeOne()" value="${listPo.firstPrice}"
 			      style="float:left;border-radius:0px; border-top-right-radius:4px; border-bottom-right-radius:4px; height:26px;" type="text">
-			      <div id="divSix">
+			      <div id="divSix" hidden>
 			         <label class="yansered" style="margin-top:18px;">*</label>
 			      </div>
 			  </div> 
@@ -270,9 +270,9 @@
 			      <div class="input-prepend"  style="float:left;">
 			        <span class="add-on" style="margin-top: 12px; height: 16px;">&yen;</span>
 			      </div>
-			      <input id="firstDurationId" name="firstDuration" class="textone inputthree radiusone" onblur="onchangeOne()"
+			      <input id="firstDurationId" name="firstDuration" class="textone inputthree radiusone" onblur="onchangeOne()" value="${listPo.firstDuration}"
 			      style="float:left;border-radius:0px; border-top-right-radius:4px; border-bottom-right-radius:4px; height:26px;" type="text">
-			      <div id="divSeven">
+			      <div id="divSeven" hidden>
 			         <label class="yansered" style="margin-top:18px;">*</label>
 			      </div>
 			  </div>
@@ -280,10 +280,10 @@
 	     </div>
 	
 		  <div class="span6" style="text-align:center;">
-		      <div class="row-fluid"  style="float:left;">
+		      <div class="row-fluid">
 			      <div class="span12" style="margin-top: 10px;margin-bottom: 8px;">
 				   	 <button class="btn btn-primary" type="submit">
-				   	 <li class="icon-check icon-white"></li>保存</button>
+				   	 <li class="icon-check icon-white"></li>修改</button>
 				  </div> 
 				 
 			  </div>
@@ -306,10 +306,8 @@
  
  
  <script type="text/javascript">
- 
-   
-   
-   $("#roomNumberId").focus();
+    var Name=document.getElementById("roomNumberId").value;
+  
  
     function verify(){
     if(document.getElementById("roomNumberId").value==""){
@@ -380,10 +378,15 @@
 	     alert("你输入的    首段时长   太过长了  请不要超出  8 位长度");
 	     document.getElementById("firstDurationId").focus();
 	     return false;
-      }else{
+      } else{
          return true;
       } 
    }
+   
+    function deletefunction(){
+     parent.document.getElementById('Mainid').src='${ctx}/RoomSet/tolist.do';
+   }
+   
    
    function YZ(value){
      if(value!=""){
@@ -394,7 +397,9 @@
           data:"roomNumber="+value,                         // IDCardValue 自定义的。相当于name把值赋予给 他可以在servlet 获取
           async:false,                                          // 是否 异步 提交
           success: function (result) {                          // 不出现异常 进行立面方
-              if(result>=1){                                  
+              if(Name==document.getElementById("roomNumberId").value){
+              
+              }else if(result>=1){                                  
                    alert("已存在此房间号，请另取房间号！");                     //提示框
                    document.getElementById("roomNumberId").value="";     //这个id的文本框的值 将会清空
                    document.getElementById("roomNumberId").focus();      // 给这个id的文本框提供焦点
@@ -406,12 +411,8 @@
      }
    }
    
-    function deletefunction(){
-     parent.document.getElementById('Mainid').src='${ctx}/RoomSet/tolist.do';
-   }
    
-   
-   //验证
+    //验证
    function onchangeOne(){
      //房间号 
      if(document.getElementById("roomNumberId").value!=""){
@@ -498,8 +499,6 @@
        document.getElementById("divSeven").style.display="block"; //显示
      }
    }
-   
-   
  </script>
    
   </body>

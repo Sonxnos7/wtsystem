@@ -1,10 +1,10 @@
 package vip.wente.wtsystem.controller;
 
-import org.apache.shiro.crypto.hash.Md5Hash;
+
 import org.springframework.ui.ModelMap;
 import vip.wente.wtsystem.entity.ResponseResult;
 import vip.wente.wtsystem.entity.User;
-import vip.wente.wtsystem.exceptions.PasswordNotExit;
+
 import vip.wente.wtsystem.exceptions.ServiceException;
 import vip.wente.wtsystem.exceptions.UsernameConflictException;
 import org.apache.shiro.SecurityUtils;
@@ -49,7 +49,7 @@ public class UserController {
      */
     @RequestMapping("/login")
     public String login(){
-        return "login";
+        return "login/login";
     }
 
     /**
@@ -103,7 +103,7 @@ public class UserController {
                     session.setAttribute("uid",uid);
                     session.setAttribute("uname",username);
                     session.setAttribute("shopNumber",shopNumber);
-                    return "index";
+                    return "redirect:/main/toMain";
                 }
             }catch (IncorrectCredentialsException e) {
                 return "error";

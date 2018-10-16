@@ -257,7 +257,7 @@
 				</div>
 
 				<div style="width:100%;height:100%;">
-				  <iframe id="Mainid" th:src="@{~/Main/todata.do}" style="width:100%;height:100%;"  frameBorder="0" scrolling="no"></iframe>
+				  <iframe id="Mainid" src="/room/add" style="width:100%;height:700px;"  frameBorder="0" scrolling="auto"></iframe>
 				</div>
 
 				<div class="ace-settings-container" id="ace-settings-container">
@@ -364,6 +364,13 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+            function changeFrameHeight(){
+                var ifm= document.getElementById("mainiframe");
+                ifm.height=document.documentElement.clientHeight-56;
+            }
+            window.onresize=function(){ changeFrameHeight();}
+            $(function(){changeFrameHeight();});
+
 			$(function() {
 				$('.easy-pie-chart.percentage').each(function(){
 					var $box = $(this).closest('.infobox');
@@ -584,7 +591,7 @@
 			     document.getElementById("bigGuide").innerHTML=a+"";
 			     var s=document.getElementById("roomSetId").getElementsByTagName('span')[0].innerHTML;
 			     document.getElementById("smallGuide").innerHTML=s+"";
-			     document.getElementById('Mainid').src='RoomSet/tolist.do';
+			     document.getElementById('Mainid').src='/room/list';
 			}
 			function commoditySet(){
 			     var a=document.getElementById("roomManageId").getElementsByTagName('span')[0].innerHTML;

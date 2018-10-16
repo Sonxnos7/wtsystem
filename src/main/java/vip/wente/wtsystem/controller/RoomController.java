@@ -27,7 +27,7 @@ public class RoomController {
     //显示添加房间页面
     @RequestMapping("/add")
     public String showAdd(){
-        return "addRoom";
+        return "roomset/add";
     }
     //处理添加房间业务
     @RequestMapping("/addRoom")
@@ -50,6 +50,6 @@ public class RoomController {
         Integer shopNumber=(Integer) session.getAttribute("shopNumber");
         PageInfo<Room> pageInfo=roomService.getAllRooms(shopNumber,2,10);
         map.addAttribute("rooms",pageInfo);
-        return "roomList";
+        return "roomset/roomset";
     }
 }
