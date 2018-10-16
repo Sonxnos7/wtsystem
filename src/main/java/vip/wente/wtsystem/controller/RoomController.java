@@ -1,5 +1,7 @@
 package vip.wente.wtsystem.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,14 +42,14 @@ public class RoomController {
         room.setStandardPriceDay(standardPriceDay);
         System.out.println("添加的房间信息："+room);
         roomService.addRoom(room);
-        return "redirect:list";
+        return "success";
     }
     //显示所有房间的信息
     @RequestMapping("/list")
-    public String showRoomList(HttpSession session, ModelMap map){
+    public String showRoomList(HttpSession session, ModelMap map,Integer page){
         Integer shopNumber=(Integer) session.getAttribute("shopNumber");
-        List<Room> list=roomService.getAllRooms(shopNumber,null,null);
-        map.addAttribute("rooms",list);
+        PageInfo<Room> pageInfo=roomService.getAllRooms(shopNumber,2,10);
+        map.addAttribute("rooms",pageInfo);
         return "roomList";
     }
 }

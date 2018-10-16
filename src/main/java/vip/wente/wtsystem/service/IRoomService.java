@@ -1,5 +1,6 @@
 package vip.wente.wtsystem.service;
 
+import com.github.pagehelper.PageInfo;
 import vip.wente.wtsystem.entity.Room;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public interface IRoomService {
      * @param shopNumber 酒店id
      * @return
      */
-    List<Room> getAllRooms(Integer shopNumber,Integer offset, Integer countPerpage);
+    PageInfo<Room> getAllRooms(Integer shopNumber, Integer pageNum, Integer pageSize);
 
     /**
      * 查询当前酒店所有的空房间

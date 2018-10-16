@@ -1,6 +1,9 @@
 package vip.wente.wtsystem.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import vip.wente.wtsystem.dao.RoomDao;
 import vip.wente.wtsystem.entity.Room;
@@ -34,10 +37,14 @@ public class RoomServiceImpl  implements IRoomService{
     }
     //获取所有房间信息，默认按照房间状态排序
     @Override
-    public List<Room> getAllRooms(Integer shopNumber,Integer offset, Integer countPerpage) {
+    public PageInfo<Room> getAllRooms(Integer shopNumber, Integer pageNum, Integer pageSize) {
+        //使用分页插件
+        PageHelper.startPage(pageNum, pageSize);
         String where="shopNumber='"+shopNumber+"'";
         String orderBy="roomStateID asc,id asc";
-        return roomDao.getRooms(where,orderBy,offset,countPerpage);
+         List<Room> list= roomDao.getRooms(where,orderBy,null,null);
+        PageInfo<Room> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
     //获取所有空房间信息
     @Override

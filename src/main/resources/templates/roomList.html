@@ -13,7 +13,7 @@
         <th>酒店号</th>
         <th>价格</th>
     </tr>
-    <tr th:each="r:${rooms}">
+    <tr th:each="r:${rooms.list}">
         <td th:text="${r.id}"></td>
         <td th:text="${r.roomNumber}"></td>
         <td th:text="${r.roomAmount}"></td>

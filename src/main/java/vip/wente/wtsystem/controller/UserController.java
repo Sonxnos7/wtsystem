@@ -49,7 +49,7 @@ public class UserController {
      */
     @RequestMapping("/login")
     public String login(){
-        return "login/login";
+        return "login";
     }
 
     /**
@@ -103,7 +103,7 @@ public class UserController {
                     session.setAttribute("uid",uid);
                     session.setAttribute("uname",username);
                     session.setAttribute("shopNumber",shopNumber);
-                    return "main/main";
+                    return "index";
                 }
             }catch (IncorrectCredentialsException e) {
                 return "error";
