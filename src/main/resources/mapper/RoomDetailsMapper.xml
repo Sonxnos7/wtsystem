@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+		<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="vip.wente.wtsystem.dao.RoomDetailsDao" >
+	<!--根据roomType进行查询-->
+	<!--List<RoomDetails> getByRoomType(Integer type);-->
+	<select id="getByRoomType" resultType="vip.wente.wtsystem.entity.RoomDetails">
+		select id,details from room_details where type=#{type}
+	</select>
+</mapper>
