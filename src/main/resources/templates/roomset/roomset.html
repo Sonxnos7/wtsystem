@@ -70,7 +70,7 @@
 	    <div class="row-fluid">
 		    <label class="labelroomnumber">房间号：</label>
 		    <form action="/room/list" method="post" style="float: left;">
-			   <input id="txtnameid" name="txtname" class="textone roomnumberwidth" style="border-radius:0px; border-top-left-radius:4px; border-bottom-left-radius:4px;height:26px;" type="text" placeholder="请输入关键字" value="${txtname}">
+			   <input id="txtnameid" name="txtname" class="textone roomnumberwidth" style="border-radius:0px; border-top-left-radius:4px; border-bottom-left-radius:4px;height:26px;" type="text" placeholder="请输入关键字" value="">
 			   <div class="input-append">  
 			      <button type="submit" class="btn-success textone" style="margin-left:-4px;height:26px;"><li class="icon-search icon-white"></li>搜索</button>
 			   </div>
@@ -211,42 +211,38 @@
 
 	      </thead>
 	      <tbody id="tbody">
-          <c:forEach items="${list.result}" var="item">
-              <tr>
-                  <td><input type="checkbox" name="id" value="${item.id}"></td>
-                  <td>${item.roomNumber}</td>
-                  <td>${item.guestRoomLevelName}</td>
+              <tr  th:each="r:${rooms.list}">
+                  <td><input type="checkbox" name="id" th:value="${r.id}"></td>
+                  <td th:text="${r.roomNumber}"></td>
+                  <td th:text="${r.state}"></td>
 
-                  <c:if test="${item.roomStateID==1}">
-                      <td style="background:#99FF99;">${item.roomName}</td>
-                  </c:if>
-                  <c:if test="${item.roomStateID==2}">
-                      <td style="background:#DDDDDD;">${item.roomName}</td>
-                  </c:if>
-                  <c:if test="${item.roomStateID==4}">
-                      <td style="background:#99FFFF;">${item.roomName}</td>
-                  </c:if>
-                  <c:if test="${item.roomStateID==5}">
-                      <td style="background:#BBBB00;">${item.roomName}</td>
-                  </c:if>
-                  <c:if test="${item.roomStateID==6}">
-                      <td style="background:#FF7744;">${item.roomName}</td>
-                  </c:if>
-                  <c:if test="${item.roomStateID==7}">
-                      <td style="background:#FF0088;">${item.roomName}</td>
-                  </c:if>
-                  <c:if test="${item.roomStateID==65}">
-                      <td style="background:#FF00FF;">${item.roomName}</td>
-                  </c:if>
+                  <!--<c:if test="${item.roomStateID==1}">-->
+                      <!--<td style="background:#99FF99;">${item.roomName}</td>-->
+                  <!--</c:if>-->
+                  <!--<c:if test="${item.roomStateID==2}">-->
+                      <!--<td style="background:#DDDDDD;">${item.roomName}</td>-->
+                  <!--</c:if>-->
+                  <!--<c:if test="${item.roomStateID==4}">-->
+                      <!--<td style="background:#99FFFF;">${item.roomName}</td>-->
+                  <!--</c:if>-->
+                  <!--<c:if test="${item.roomStateID==5}">-->
+                      <!--<td style="background:#BBBB00;">${item.roomName}</td>-->
+                  <!--</c:if>-->
+                  <!--<c:if test="${item.roomStateID==6}">-->
+                      <!--<td style="background:#FF7744;">${item.roomName}</td>-->
+                  <!--</c:if>-->
+                  <!--<c:if test="${item.roomStateID==7}">-->
+                      <!--<td style="background:#FF0088;">${item.roomName}</td>-->
+                  <!--</c:if>-->
+                  <!--<c:if test="${item.roomStateID==65}">-->
+                      <!--<td style="background:#FF00FF;">${item.roomName}</td>-->
+                  <!--</c:if>-->
 
-                  <td>${item.roomAmount}</td>
-                  <td>￥${item.standardPriceDay}</td>
-                  <td>￥${item.standardPrice}</td>
-                  <td>${item.maxDuration}</td>
-                  <td>${item.firstDuration}</td>
-                  <td>￥${item.firstPrice}</td>
+                  <td th:text="${r.type}"></td>
+                  <td th:text="${r.roomAmount}"></td>
+                  <td th:text="${r.standardPriceDay}"></td>
+                  <td th:text="${r.vipPriceDay}"></td>
               </tr>
-          </c:forEach>
 	      </tbody>
 	    </table>
     </div>

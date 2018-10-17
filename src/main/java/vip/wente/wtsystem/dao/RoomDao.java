@@ -40,6 +40,6 @@ public interface RoomDao {
      * @param shopNumber
      * @return
      */
-    Integer delete(Integer id,Integer shopNumber);
+    Integer delete(@Param("id") Integer id,@Param("shopNumber") Integer shopNumber);
 
 }

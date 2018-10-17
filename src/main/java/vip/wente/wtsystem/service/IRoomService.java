@@ -65,4 +65,12 @@ public interface IRoomService {
      */
     List<Room> getOrderRooms(Integer shopNumber,Integer offset, Integer countPerpage);
 
+    /**
+     * 根据id获取房间信息
+     * @param shopNumber
+     * @param id
+     * @return
+     */
+    Room getRoomById(Integer shopNumber,Integer id);
+
 }

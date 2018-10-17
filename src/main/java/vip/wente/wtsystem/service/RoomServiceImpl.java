@@ -41,8 +41,12 @@ public class RoomServiceImpl  implements IRoomService{
         //使用分页插件
         PageHelper.startPage(pageNum, pageSize);
         String where="shopNumber='"+shopNumber+"'";
-        String orderBy="roomStateID asc,id asc";
-         List<Room> list= roomDao.getRooms(where,orderBy,null,null);
+        String orderBy="roomAmount asc,id asc";
+        List<Room> list= roomDao.getRooms(where,orderBy,null,null);
+        System.out.println("查到的房间数："+list.size());
+        for(Room r:list){
+            System.out.println(r);
+        }
         PageInfo<Room> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
@@ -50,14 +54,14 @@ public class RoomServiceImpl  implements IRoomService{
     @Override
     public List<Room> getEmptyRooms(Integer shopNumber,Integer offset, Integer countPerpage) {
         String where= "shopNumber='"+shopNumber+"' and roomStateID=0";
-        String orderBy="roomStateID asc,id asc";
+        String orderBy="roomAmount asc,id asc";
         return roomDao.getRooms(where,orderBy,offset,countPerpage);
     }
     //获取被使用的房间
     @Override
     public List<Room> getUseRooms(Integer shopNumber, Integer offset, Integer countPerpage) {
         String where= "shopNumber='"+shopNumber+"' and roomStateID=1";
-        String orderBy="roomStateID asc,id asc";
+        String orderBy="roomAmount asc,id asc";
         return roomDao.getRooms(where,orderBy,offset,countPerpage);
     }
 
@@ -65,7 +69,14 @@ public class RoomServiceImpl  implements IRoomService{
     @Override
     public List<Room> getOrderRooms(Integer shopNumber,Integer offset, Integer countPerpage) {
         String where= "shopNumber='"+shopNumber+"' and roomStateID=2";
-        String orderBy="roomStateID asc,id asc";
+        String orderBy="roomAmount asc,id asc";
         return roomDao.getRooms(where,orderBy,offset,countPerpage);
+    }
+    //通过id获取房间信息
+    @Override
+    public Room getRoomById(Integer shopNumber, Integer id) {
+        String where="shopNumber='"+shopNumber+"' and r.id="+id;
+        Room room=roomDao.getRooms(where,null,null,null).get(0);
+        return room;
     }
 }

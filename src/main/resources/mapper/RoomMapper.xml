@@ -5,19 +5,23 @@
     <!--添加房间-->
     <insert id="addRoom" parameterType="vip.wente.wtsystem.entity.Room" useGeneratedKeys="true" keyProperty="id">
         insert into room(
+                roomState,
+                roomType,
                 shopNumber,
                  roomNumber,
                 roomAmount,
-                roomStateID,
                 standardPriceDay,
+                vipPriceDay,
                 createdTime,modifiedTime,
                 createdUser,modifiedUser
                 )values (
-               #{shopNumber},
+              #{roomState},
+              #{roomType},
+              #{shopNumber},
               #{roomNumber},
               #{roomAmount},
-              #{roomStateID},
               #{standardPriceDay},
+             #{vipPriceDay},
               now(),#{modifiedTime},
               #{createdUser},#{modifiedUser}
                           )
@@ -25,11 +29,9 @@
     <!-- List<Room> getRooms(@Param("where") String where, @Param("orderBy")String orderBy, @Param("offerset")Integer offerset, @Param("countPerpage")Integer countPerpage);;-->
     <!--获取所有房间-->
     <select id="getRooms" resultType="vip.wente.wtsystem.entity.Room">
-        select id, roomNumber,
-               roomAmount,shopNumber,
-               roomStateID,
-               standardPriceDay
-        from room
+        select r.id id, r.roomNumber roomNumber, d_a.details type,d.details state,r.standardPriceDay standardPriceDay,r.vipPriceDay vipPriceDay,r.roomAmount roomAmount,
+        r.roomState roomState,r.roomType roomType,r.shopNumber shopNumber
+        from  (SELECT * FROM room_details) AS d_a RIGHT JOIN room r on d_a.id=r.roomState LEFT JOIN room_details d on d.id=r.roomType
         <if test="where!=null">where ${where}</if>
         <if test="orderBy!=null">order by ${orderBy}</if>
         <if test="offerset!=null">limit ${offerset},${countPerpage}</if>
@@ -38,10 +40,15 @@
     <!--修改房间信息-->
     <update id="update">
         update room
-        set roomNumber=#{roomNumber},roomStateID=#{roomStateID},standardPriceDay=#{standardPriceDay}
+        set roomNumber=#{roomNumber},roomStateID=#{roomStateID},standardPriceDay=#{standardPriceDay},vipPriceDay=#{vipPriceDay}
         WHERE shopNumber=#{shopNumber}
         <if test="id!=null">
             and id=#{id}
         </if>
     </update>
+    <!--删除房间-->
+    <!--Integer delete(Integer id,Integer shopNumber);-->
+    <delete id="delete">
+        delete from room where id=#{id} and shopNumber=#{shopNumber}
+    </delete>
 </mapper>
