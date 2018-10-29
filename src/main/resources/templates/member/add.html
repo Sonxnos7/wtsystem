@@ -166,7 +166,7 @@
             </div>
         </div>
 
-        <form action="/member/add" method="post" onsubmit="return verify()">
+        <form action="/member/handle_Add"  onsubmit="return verify()">
             <!--  ———————————————————————————————————————————————————————————————————————————————————————— -->
             <div class="span12">
                 <div class="row-fluid">
@@ -180,17 +180,15 @@
                     </div>
                     <div class="span3">
                         <label>性别：</label>
-                        <select name="genderID" style="width:100%;height:27px;">
-                            <!--<c:forEach items="${listGender}" var="item">-->
-                            <!--<option value="${item.far_id}" <c:if test="${item.far_id==31}">selected="selected"</c:if>>-->
-                            <!--${item.attributeDetailsName}-->
-                            <!--</option>-->
-                            <!--</c:forEach> -->
+                        <select name="sex" style="width:100%;height:27px;">
+                           <option th:each="sex:${type1}" th:value="${sex.id}" th:text="${sex.details}">
+
+                           </option>
                         </select>
                     </div>
                     <div class="span3">
                         <label>出生日期：</label>
-                        <input id="birthDateId" name="birthDate" type="text" style="width:100%;height:27px;"
+                        <input id="birthDateId" name="birth" type="text" style="width:100%;height:27px;"
                                placeholder="年-月-日">
                     </div>
                     <div class="span3">
@@ -205,27 +203,25 @@
                 <div class="row-fluid">
                     <div class="span3">
                         <label>发证机关：</label>
-                        <input id="JGID" name="licenceIssuingAuthorty" type="text" style="width:100%;height:27px;">
+                        <input id="JGID" name="provate" type="text" style="width:100%;height:27px;">
                     </div>
                     <div class="span3">
                         <label>证件有效期：</label>
-                        <input id="papersValidityId" name="papersValidity" type="text" style="width:100%;height:27px;"
+                        <input id="papersValidityId" name="intime" type="text" style="width:100%;height:27px;"
                                placeholder="年-月-日 至 年-月-日">
                     </div>
                     <div class="span3">
                         <label>证件类型：</label>
-                        <select id="papersId" name="papersID" style="width:100%;height:27px;">
-                            <!--<c:forEach items="${listPapers}" var="item">-->
-                            <!--<option value="${item.far_id}" <c:if test="${item.far_id==37}">selected="selected"</c:if>>-->
-                            <!--${item.attributeDetailsName}-->
-                            <!--</option>-->
-                            <!--</c:forEach> -->
+                        <select id="papersId" name="type" style="width:100%;height:27px;">
+                            <option th:each="type:${type2}" th:value="${type.id}" th:text="${type.details}">
+
+                            </option>
                         </select>
 
                     </div>
                     <div class="span3">
                         <label>证件号码：</label>
-                        <input id="papersNumberId" name="papersNumber" type="text" onblur="YZ(this.value)"
+                        <input id="papersNumberId" name="number" type="text"
                                style="width:97%;height:27px;float:left;" onchange="onchangeOne()">
                         <div id="divTwo" style="float:right;">
                             <label class="yansered" style="margin-top:7px;">*</label>
@@ -238,17 +234,15 @@
                 <div class="row-fluid">
                     <div class="span3">
                         <label>会员级别：</label>
-                        <select name="passengerLevelID" style="width:100%;height:27px;">
-                            <!--<c:forEach items="${listPassengerLevel}" var="item">-->
-                            <!--<option value="${item.far_id}" <c:if test="${item.far_id==52}">selected="selected"</c:if>>-->
-                            <!--${item.attributeDetailsName}-->
-                            <!--</option>-->
-                            <!--</c:forEach> -->
+                        <select name="lever" style="width:100%;height:27px;">
+                            <option th:each="type:${type3}" th:value="${type.id}" th:text="${type.details}">
+
+                            </option>
                         </select>
                     </div>
                     <div class="span3">
                         <label>联系电话：</label>
-                        <input id="contactPhoneNumberId" name="contactPhoneNumber" type="text"
+                        <input id="contactPhoneNumberId" name="phone" type="text"
                                style="width:100%;height:27px;" placeholder="只能为手机号码" onchange="onchangeOne()">
                     </div>
 
@@ -257,7 +251,7 @@
             <!--  ———————————————————————————————————————————————————————————————————————————————————————— -->
             <div class="span12">
                 <label style="float: left;">备注：</label>
-                <input name="remarks" type="text" style="width:100%;height:27px;">
+                <input name="other" type="text" style="width:100%;height:27px;">
             </div>
 
 

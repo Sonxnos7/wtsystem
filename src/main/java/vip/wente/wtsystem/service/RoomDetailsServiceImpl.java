@@ -21,4 +21,9 @@ public class RoomDetailsServiceImpl implements IRoomDetailsService{
     public List<RoomDetails> getByRoomType(Integer type) {
         return roomDetailsDao.getByRoomType(type);
     }
+    //添加商品种类
+    @Override
+    public Integer add(Integer type, String details) {
+        return roomDetailsDao.add(type,details);
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import vip.wente.wtsystem.entity.Room;
 import vip.wente.wtsystem.entity.RoomDetails;
 import vip.wente.wtsystem.service.IRoomDetailsService;
@@ -57,6 +58,11 @@ public class RoomController {
     public String addRoom(String roomNumber,Integer roomAmount,Integer roomState,Integer roomType, Double standardPriceDay,Double vipPriceDay, HttpSession session){
         Integer shopNumber=(Integer) session.getAttribute("shopNumber");
         String createUser=(String) session.getAttribute("uname");
+        List<Room> r=roomService.getByName(shopNumber,roomNumber);
+        if(r.size()!=0&r!=null){
+            //房间已经存在
+            return roomNumber+"已经存在了，房间号不能重复！";
+        }
         Room room=new Room();
         room.setCreatedUser(createUser);
         room.setShopNumber(shopNumber);
@@ -70,15 +76,41 @@ public class RoomController {
         roomService.addRoom(room);
         return "redirect:list";
     }
+    //处理修改房间信息业务
+    @RequestMapping("/handle_update")
+    public String handleUpdate(Integer id,String roomNumber,Integer roomAmount,Integer roomState,Integer roomType, Double standardPriceDay,Double vipPriceDay, HttpSession session){
+        Integer shopNumber=(Integer) session.getAttribute("shopNumber");
+        String createUser=(String) session.getAttribute("uname");
+        Room room=new Room();
+        room.setId(id);
+        room.setCreatedUser(createUser);
+        room.setShopNumber(shopNumber);
+        room.setRoomAmount(roomAmount);
+        room.setRoomNumber(roomNumber);
+        room.setRoomState(roomState);
+        room.setRoomType(roomType);
+        room.setVipPriceDay(vipPriceDay);
+        room.setStandardPriceDay(standardPriceDay);
+        roomService.update(room);
+        return "redirect:list";
+    }
     //显示所有房间的信息
     @RequestMapping("/list")
     public String showRoomList(HttpSession session, ModelMap map,Integer page){
         if(page==null){
             page=1;
         }
+
         Integer shopNumber=(Integer) session.getAttribute("shopNumber");
-        PageInfo<Room> pageInfo=roomService.getAllRooms(shopNumber,2,10);
-        map.addAttribute("rooms",pageInfo);
+        List<Room> rooms = roomService.getAllRooms(shopNumber,1,50);
+        map.addAttribute("rooms",rooms);
+        return "roomset/roomset";
+    }
+    @RequestMapping("/search")
+    public String search(HttpSession session,String roomName,ModelMap map){
+        Integer shopNumber=(Integer) session.getAttribute("shopNumber");
+        List<Room> rooms=roomService.getRoomByName(shopNumber,roomName);
+        map.addAttribute("rooms",rooms);
         return "roomset/roomset";
     }
     @RequestMapping("/delete")
@@ -87,4 +119,5 @@ public class RoomController {
         roomService.delete(id,shopNumber);
         return "redirect:list";
     }
+
 }

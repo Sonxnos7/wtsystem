@@ -40,7 +40,7 @@ public interface IRoomService {
      * @param shopNumber 酒店id
      * @return
      */
-    PageInfo<Room> getAllRooms(Integer shopNumber, Integer pageNum, Integer pageSize);
+    List<Room> getAllRooms(Integer shopNumber, Integer pageNum, Integer pageSize);
 
     /**
      * 查询当前酒店所有的空房间
@@ -72,5 +72,21 @@ public interface IRoomService {
      * @return
      */
     Room getRoomById(Integer shopNumber,Integer id);
+
+    /**
+     * 根据房间号进行模糊查询获得房间信息
+     * @param shopNumber
+     * @param roomNumber
+     * @return
+     */
+    List<Room> getRoomByName(Integer shopNumber,String roomNumber);
+
+    /**
+     * 根据房间号进行查询获得房间信息
+     * @param shopNumber
+     * @param roomNumber
+     * @return
+     */
+    List<Room> getByName(Integer shopNumber,String roomNumber);
 
 }

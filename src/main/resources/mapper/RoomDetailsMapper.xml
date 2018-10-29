@@ -6,4 +6,15 @@
 	<select id="getByRoomType" resultType="vip.wente.wtsystem.entity.RoomDetails">
 		select id,details from room_details where type=#{type}
 	</select>
+	<!--添加商品种类-->
+	<!--Integer add(@Param("type") Integer type, @Param("details") String details);-->
+	<insert id="add"  useGeneratedKeys="true" keyProperty="id">
+		insert into room_details (
+					type,
+				  	 details
+				) values (
+					#{type},
+					#{details}
+							 )
+	</insert>
 </mapper>

@@ -73,12 +73,12 @@
     <div class="span4">
         <div class="row-fluid">
             <label class="labelroomnumber" style="font-size:16px;">商品名：</label>
-            <form action="" method="post" style="float: left;">
-                <input id="txtnameid" name="txtname" class="textone roomnumberwidth"
+            <form action="/commodity/search" method="get" style="float: left;">
+                <input id="txtnameid" name="name" class="textone roomnumberwidth"
                        style="border-radius:0px; border-top-left-radius:4px; border-bottom-left-radius:4px;height:27px;"
-                       type="text" placeholder="请输入关键字" value="${txtname}">
+                       type="text" placeholder="请输入关键字" value="">
                 <div class="input-append">
-                    <button type="button" onclick="selectFunction()" class="btn btn-success  btn-small textone"
+                    <button type="submit"  class="btn btn-success  btn-small textone"
                             style="margin-left:-5px;height:27px;">
                         <li class="icon-search icon-white"></li>
                         搜索
@@ -102,7 +102,7 @@
                 if (chk_value.toString().indexOf(",") > 0) {
                     alert("修改只能选择一条");
                 } else {
-                    parent.document.getElementById("Mainid").src = '/commodity/toUpdate?id=' + chk_value;
+                    parent.document.getElementById("Mainid").src = '/commodity/update?id=' + chk_value;
                 }
             } else {
                 alert("请选择一条数据进行修改");
@@ -117,7 +117,7 @@
             if (chk_value != "") {
                 var flag = window.confirm("注意：您确定要永久删除该信息吗?");
                 if (flag) {
-                    parent.document.getElementById("Mainid").src = '${ctx}/Commodity/delete.do?id=' + chk_value;
+                    parent.document.getElementById("Mainid").src = '/commodity/delete?id=' + chk_value;
                 }
             } else {
                 alert("请选择一条或多条数据进行删除");
@@ -224,15 +224,13 @@
                 <th rowspan="2">销售价格</th>
             </thead>
             <tbody id="tbody">
-            <!--<c:forEach items="${list.result}" var="item">-->
-                <!--<tr>-->
-                    <!--<td><input type="checkbox" name="id" value="${item.id}"></td>-->
-                    <!--<td>${item.commodityName}</td>-->
-                    <!--<td>${item.commodityTypeName}</td>-->
-                    <!--<td>${item.uOMName}</td>-->
-                    <!--<td>${item.salePrice}</td>-->
-                <!--</tr>-->
-            <!--</c:forEach>-->
+            <tr th:each="good:${list}">
+                <td><input type="radio" name="id" th:value="${good.id}"></td>
+                <td th:text="${good.name}"></td>
+                <td th:text="${good.typeName}"></td>
+                <td th:text="${good.emName}"></td>
+                <td th:text="${good.price}"></td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -256,9 +254,9 @@
                     <div class="span4">
                         <div class="row-fluid">
                             <label id="bie" class="labelroomnumber"
-                                   style="margin-left: -20px; font-size: 15px;">商品名：</label>
+                                   style="margin-left: -20px; font-size: 15px;">商品类名：</label>
                             <form action="" method="post" style="float: left;">
-                                <input id="newtxtnameid" type="text" placeholder="请输入要新增的商品名称"
+                                <input id="newtxtnameid" type="text" placeholder="请输入要新增的商品类名"
                                        style="width:120%;height: 26px;margin-top: 11px;">
                             </form>
                         </div>

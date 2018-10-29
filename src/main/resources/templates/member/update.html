@@ -166,93 +166,42 @@
             </div>
         </div>
 
-        <form action="/member/update.do" method="post" onsubmit="return verify()">
+        <form action="/member/handle_update" method="post" onsubmit="return verify()">
             <!--  ———————————————————————————————————————————————————————————————————————————————————————— -->
-            <input type="hidden" name="id" value="${list.id}"/>
+            <input type="hidden" name="id" th:value="${member.id}"/>
             <div class="span12">
                 <div class="row-fluid">
                     <div class="span3">
                         <label>姓名：</label>
-                        <input id="nameId" name="name" type="text" value="${list.name}"
+                        <input id="nameId" name="name" type="text" th:value="${member.name}"
                                style="width:97%;height:26px;float:left;" onchange="onchangeOne()">
                         <div id="divOne" style="float:right;" hidden>
                             <label class="yansered" style="margin-top:7px;">*</label>
                         </div>
                     </div>
-                    <div class="span3">
-                        <label>性别：</label>
-                        <select name="genderID" style="width:100%;height:26px;">
-                            <!--<c:forEach items="${listGender}" var="item">-->
-                            <!--<option value="${item.far_id}" <c:if test="${item.far_id==list.genderID}">selected="selected"</c:if>>-->
-                            <!--${item.attributeDetailsName}-->
-                            <!--</option>-->
-                            <!--</c:forEach> -->
-                        </select>
-                    </div>
-                    <div class="span3">
-                        <label>出生日期：</label>
-                        <input id="birthDateId" name="birthDate" type="text" style="width:100%;height:26px;"
-                               placeholder="年-月-日" value="${list.birthDate}">
-                    </div>
-                    <div class="span3">
-                        <label>民族：</label>
-                        <input id="nationID" name="nation" type="text" style="width:100%;height:27px;"
-                               placeholder="汉">
-                    </div>
                 </div>
             </div>
             <!--  ———————————————————————————————————————————————————————————————————————————————————————— -->
             <div class="span12">
                 <div class="row-fluid">
-                    <div class="span3">
-                        <label>发证机关：</label>
-                        <input name="licenceIssuingAuthorty" type="text" style="width:100%;height:26px;"
-                               value="${list.licenceIssuingAuthorty}">
-                    </div>
-                    <div class="span3">
-                        <label>证件有效期：</label>
-                        <input name="papersValidity" type="text" style="width:100%;height:26px;"
-                               placeholder="年-月-日 至 年-月-日" value="${list.papersValidity}">
-                    </div>
-                    <div class="span3">
-                        <label>证件类型：</label>
-                        <select id="papersId" name="papersID" style="width:100%;height:26px;">
-                            <!--<c:forEach items="${listPapers}" var="item">-->
-                            <!--<option value="${item.far_id}" <c:if test="${item.far_id==list.papersID}">selected="selected"</c:if>>-->
-                            <!--${item.attributeDetailsName}-->
-                            <!--</option>-->
-                            <!--</c:forEach> -->
-                        </select>
 
                     </div>
-                    <div class="span3">
-                        <label>证件号码：</label>
-                        <input id="papersNumberId" name="papersNumber" type="text" onblur="YZ(this.value)"
-                               style="width:97%;height:26px;float:left;" onchange="onchangeOne()"
-                               value="${list.papersNumber}">
-                        <div id="divTwo" style="float:right;" hidden>
-                            <label class="yansered" style="margin-top:7px;">*</label>
-                        </div>
-                    </div>
                 </div>
-            </div>
+
             <!--  ———————————————————————————————————————————————————————————————————————————————————————— -->
             <div class="span12">
                 <div class="row-fluid">
                     <div class="span3">
                         <label>旅客级别：</label>
-                        <select name="passengerLevelID" style="width:100%;height:26px;">
-                            <!--<c:forEach items="${listPassengerLevel}" var="item">-->
-                            <!--<option value="${item.far_id}" <c:if test="${item.far_id==list.passengerLevelID}">selected="selected"</c:if>>-->
-                            <!--${item.attributeDetailsName}-->
-                            <!--</option>-->
-                            <!--</c:forEach> -->
+                        <select name="lever" style="width:100%;height:26px;">
+                           <option th:value="${member.lever}" th:text="${member.leverName}"></option>
+                            <option th:each="lev:${type}" th:value="${lev.id}" th:text="${lev.details}"></option>
                         </select>
                     </div>
                     <div class="span3">
                         <label>联系电话：</label>
-                        <input id="contactPhoneNumberId" name="contactPhoneNumber" type="text"
-                               value="${list.contactPhoneNumber}"
+                        <input id="contactPhoneNumberId" name="phone" type="text" th:value="${member.phone}"
+
                                style="width:100%;height:26px;" placeholder="只能为手机号码" onblur="onchangeOne()">
                     </div>
 
@@ -262,7 +211,7 @@
             <!--  ———————————————————————————————————————————————————————————————————————————————————————— -->
             <div class="span12">
                 <label style="float: left;">备注：</label>
-                <input name="remarks" type="text" style="width:100%;height:26px;" value="${list.remarks}">
+                <input name="remarks" type="text" style="width:100%;height:26px;" th:value="${member.other}">
             </div>
 
 
@@ -334,7 +283,7 @@
     }
 
     function deletefunction() {
-        parent.document.getElementById('Mainid').src = '${ctx}/Passenger/tolist.do';
+        parent.document.getElementById('Mainid').src = '/member/toList';
     }
 
     function onchangeOne() {
