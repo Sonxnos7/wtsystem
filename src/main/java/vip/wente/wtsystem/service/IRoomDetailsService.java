@@ -1,5 +1,6 @@
 package vip.wente.wtsystem.service;
 
+import org.apache.ibatis.annotations.Param;
 import vip.wente.wtsystem.entity.RoomDetails;
 
 import java.util.List;
@@ -13,4 +14,11 @@ import java.util.List;
 
 public interface IRoomDetailsService {
     List<RoomDetails> getByRoomType(Integer type);
+    /**
+     * 添加商品种类
+     * @param type
+     * @param details
+     * @return
+     */
+    Integer add(@Param("type") Integer type, @Param("details") String details);
 }

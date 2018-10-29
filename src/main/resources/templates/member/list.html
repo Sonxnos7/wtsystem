@@ -69,10 +69,10 @@
     <div class="span5">
         <div class="row-fluid">
             <label class="labelroomnumber">会员名称：</label>
-            <form action="/member/tolist" method="post" style="float: left;">
-                <input id="txtnameid" name="txtname" class="textone roomnumberwidth"
+            <form action="/member/search" style="float: left;">
+                <input id="txtnameid" name="info" class="textone roomnumberwidth"
                        style="border-radius:0px; border-top-left-radius:4px; border-bottom-left-radius:4px;height:26px;"
-                       type="text" placeholder="请输入关键字" value="${txtname}">
+                       type="text" placeholder="请输入关键字">
                 <div class="input-append">
                     <button type="submit" class="btn-success textone" style="margin-left:-4px;height:26px;">
                         <li class="icon-search icon-white"></li>
@@ -121,21 +121,20 @@
             </tr>
             </thead>
             <tbody id="tbody">
-            <!--<c:forEach items="${list.result}" var="item">-->
-            <!--<tr>-->
-            <!--<td><input type="checkbox" name="id" value="${item.id}"></td>-->
-            <!--<td>${item.name}</td>-->
-            <!--<td>${item.genderName}</td>-->
-            <!--<td>${item.birthDate}</td>-->
-            <!--<td>${item.nationName}</td>-->
-            <!--<td>${item.passengerLevelName}</td>-->
-            <!--<td>${item.papersName}</td>-->
-            <!--<td>${item.papersNumber}</td>-->
-            <!--<td>${item.contactPhoneNumber}</td>-->
-            <!--</tr>-->
-            <!--</c:forEach>-->
+            <tr th:each="member:${list}">
+                <td><input type="radio" name="id" th:value="${member.id}"></td>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.sexName}"></td>
+                <td th:text="${member.birth}"></td>
+                <td th:text="${member.nation}"></td>
+                <td th:text="${member.leverName}"></td>
+                <td th:text="${member.typeName}"></td>
+                <td th:text="${member.number}"></td>
+                <td th:text="${member.phone}"></td>
+            </tr>
             </tbody>
         </table>
+
     </div>
 
     <div class="span11">

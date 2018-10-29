@@ -152,25 +152,23 @@
       </div>
     </div>
     
-    <form action="${ctx}/Commodity/add.do" method="post" onsubmit="return verify()">
+    <form action="/commodity/handle_add" method="get" onsubmit="return verify()">
 	    <div class="span12">
 	      <div class="row-fluid">
 		      <div class="span5">
 			   	  <label class="labelroomnumber">商品名称：</label>
-			      <input id="commodityNameId" name="commodityName" class="textone inputone"
-			       style="height:26px;" type="text" onchange="onchangeOne()" onblur="YZ(this.value)">
+			      <input id="commodityNameId" name="name" class="textone inputone"
+			       style="height:26px;" type="text" onchange="onchangeOne()">
 			      <div id="divOne">
 			         <label class="yansered" style="margin-top:18px;">*</label>
 			       </div>
 			  </div> 
 			  <div class="span5 ">
 			   	  <label class="labelroomnumber">商品类别：</label>
-			      <select name="commodityTypeID" class="cboone inputone">
-		            <th:forEach items="${listTwo}" var="item">
-			          <option value="${item.far_id}" <th:if test="${item.far_id==16}" >selected="selected"</th:if>>
-			            ${item.attributeDetailsName}
+			      <select name="type" class="cboone inputone">
+					  <option value=""> -- 请选择 -- </option>
+			          <option th:each="ty:${list}" th:value="${ty.id}" th:text="${ty.details}">
 			          </option>
-			        </th:forEach>
 		          </select>
 			  </div>
 		  </div>
@@ -182,7 +180,7 @@
                   <div class="input-prepend" style="float:left;">
 			        <span class="add-on" style="margin-top: 12px; height: 16px;">&yen;</span>
 			      </div>
-			      <input id="salePriceId" name="salePrice" class="textone inputthree radiusone" onchange="onchangeOne()" 
+			      <input id="salePriceId" name="price" class="textone inputthree radiusone" onchange="onchangeOne()"
 			      style="float:left;border-radius:0px; border-top-right-radius:4px; border-bottom-right-radius:4px; height:26px;" type="text">
 			      <div id="divTwo">
 			         <label class="yansered" style="margin-top:18px;">*</label>
@@ -190,12 +188,10 @@
 			  </div> 
 			  <div class="span5">
 			   	  <label class="labelroomnumber">计量单位：</label>
-			      <select name="uOMID" class="cboone inputone">
-		            <c:forEach items="${listOne}" var="item">
-			          <option value="${item.far_id}" <c:if test="${item.far_id==57}">selected="selected"</c:if>>
-			            ${item.attributeDetailsName}
-			          </option>
-			        </c:forEach> 
+			      <select name="em" class="cboone inputone">
+					  <option value=""> -- 请选择 -- </option>
+					  <option th:each="ty:${titles}" th:value="${ty.id}" th:text="${ty.details}">
+					  </option>
 		          </select>
 			  </div>
 		  </div>
@@ -252,7 +248,7 @@
    }
    
     function deletefunction(){
-     parent.document.getElementById('Mainid').src='${ctx}/Commodity/tolist.do';
+     parent.document.getElementById('Mainid').src='/commodity/list';
    }
    
    function onchangeOne(){
@@ -278,26 +274,7 @@
    }
    
    
-   function YZ(value){
-     if(value!=""){
-       $.ajax({                                                      
-          cache:false,                                             //是否使用缓存提交 如果为TRUE 会调用浏览器的缓存 而不会提交
-          type: "POST",                                           //上面3行都是必须要的
-          url: '${ctx}/Commodity/YZ.do',       //地址 type 带参数
-          data:"commodityName="+value,                         // IDCardValue 自定义的。相当于name把值赋予给 他可以在servlet 获取
-          async:false,                                          // 是否 异步 提交
-          success: function (result) {                          // 不出现异常 进行立面方
-              if(result>=1){                                  
-                   alert("已存在此商品名称，请另取商品名称！");                     //提示框
-                   document.getElementById("commodityNameId").value="";     //这个id的文本框的值 将会清空
-                   document.getElementById("commodityNameId").focus();      // 给这个id的文本框提供焦点
-                   document.getElementById("divOne").style.display="block"; //显示
-              }else{ }
-          },
-          error: function(data) { }
-      });
-     }
-   }
+
  </script>
    
   </body>

@@ -38,13 +38,13 @@
     </select>
     <!--Integer update(Room room);-->
     <!--修改房间信息-->
-    <update id="update">
+    <update id="update" parameterType="vip.wente.wtsystem.entity.Room">
         update room
-        set roomNumber=#{roomNumber},roomStateID=#{roomStateID},standardPriceDay=#{standardPriceDay},vipPriceDay=#{vipPriceDay}
+        set roomNumber=#{roomNumber},roomState=#{roomState},standardPriceDay=#{standardPriceDay},vipPriceDay=#{vipPriceDay},roomType=#{roomType}
         WHERE shopNumber=#{shopNumber}
-        <if test="id!=null">
+
             and id=#{id}
-        </if>
+
     </update>
     <!--删除房间-->
     <!--Integer delete(Integer id,Integer shopNumber);-->

@@ -37,18 +37,13 @@ public class RoomServiceImpl  implements IRoomService{
     }
     //获取所有房间信息，默认按照房间状态排序
     @Override
-    public PageInfo<Room> getAllRooms(Integer shopNumber, Integer pageNum, Integer pageSize) {
+    public List<Room> getAllRooms(Integer shopNumber, Integer pageNum, Integer pageSize) {
         //使用分页插件
         PageHelper.startPage(pageNum, pageSize);
         String where="shopNumber='"+shopNumber+"'";
         String orderBy="roomAmount asc,id asc";
         List<Room> list= roomDao.getRooms(where,orderBy,null,null);
-        System.out.println("查到的房间数："+list.size());
-        for(Room r:list){
-            System.out.println(r);
-        }
-        PageInfo<Room> pageInfo = new PageInfo<>(list);
-        return pageInfo;
+        return list;
     }
     //获取所有空房间信息
     @Override
@@ -78,5 +73,19 @@ public class RoomServiceImpl  implements IRoomService{
         String where="shopNumber='"+shopNumber+"' and r.id="+id;
         Room room=roomDao.getRooms(where,null,null,null).get(0);
         return room;
+    }
+    //通过房间名查询
+    @Override
+    public List<Room> getRoomByName(Integer shopNumber, String roomNumber) {
+        String where="shopNumber='"+shopNumber+"' and r.roomNumber like '%"+roomNumber+"%'";
+        List<Room> rooms=roomDao.getRooms(where,null,null,null);
+        return rooms;
+    }
+
+    @Override
+    public List<Room> getByName(Integer shopNumber, String roomNumber) {
+        String where="shopNumber='"+shopNumber+"' and r.roomNumber='"+roomNumber+"'";
+        List<Room> rooms=roomDao.getRooms(where,null,null,null);
+        return rooms;
     }
 }
