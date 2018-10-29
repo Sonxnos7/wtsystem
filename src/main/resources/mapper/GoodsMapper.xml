@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="vip.wente.wtsystem.dao.GoodsDao" >
+    <!--添加商品-->
+    <!-- Integer add(Goods goods);-->
+    <insert id="add" parameterType="vip.wente.wtsystem.entity.Goods" useGeneratedKeys="true" keyProperty="id">
+        insert into goods (
+                   shopNumber,
+                   name,
+                    type,
+                    em,
+                   price
+
+                )values (
+                 #{shopNumber},
+                 #{name},
+                 #{type},
+                 #{em},
+                 #{price}
+
+                       )
+    </insert>
+
+    <!--获取所有商品-->
+    <!-- List<Goods> getAllGoods(@Param("where") String where, @Param("orderBy")String orderBy, @Param("offerset")Integer offerset, @Param("countPerpage")Integer countPerpage-->
+    <select id="getAllGoods" resultType="vip.wente.wtsystem.entity.Goods">
+        select r.id id, r.name name, d_a.details typeName,d.details emName,r.price price,r.shopNumber shopNumber
+        from  (SELECT * FROM room_details) AS d_a RIGHT JOIN goods r on d_a.id=r.type LEFT JOIN room_details d on d.id=r.em
+        <if test="where!=null">where ${where}</if>
+        <if test="orderBy!=null">order by ${orderBy}</if>
+        <if test="offerset!=null">limit ${offerset},${countPerpage}</if>
+    </select>
+    <!--删除商品-->
+    <!--Integer delete(@Param("id") Integer id,@Param("shopNumber") Integer shopNumber);-->
+    <delete id="delete">
+        delete from goods where id=#{id} and shopNumber=#{shopNumber}
+    </delete>
+    <!--Integer update(Good good);-->
+    <!--修改商品信息-->
+    <update id="update">
+        update goods
+        set name=#{name},type=#{type},price=#{price},em=#{em}
+        WHERE shopNumber=#{shopNumber}
+        <if test="id!=null">
+            and id=#{id}
+        </if>
+    </update>
+</mapper>

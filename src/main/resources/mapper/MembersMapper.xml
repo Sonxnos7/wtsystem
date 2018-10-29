@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="vip.wente.wtsystem.dao.MemberDao" >
+    <!-- Integer add(Member member);-->
+    <insert id="add" parameterType="vip.wente.wtsystem.entity.Member" keyProperty="id" useGeneratedKeys="true">
+        insert into members(
+           sex, name,birth,nation,provate,intime,type,number,lever,phone,
+           other,shopNumber,createdTime,createdUser
+                )values(
+             #{sex},#{name},#{birth},#{nation},#{provate},#{intime},#{type},#{number},#{lever},#{phone},
+             #{other},#{shopNumber},#{createdTime},#{createdUser}
+                       )
+    </insert>
+    <!-- List<Member> getMerbers(@Param("where") String where, @Param("orderBy")String orderBy, @Param("offerset")Integer offerset, @Param("countPerpage")Integer countPerpage);-->
+    <select id="getMerbers" resultType="vip.wente.wtsystem.entity.Member">
+        select r.id id, r.name name, d_a.details sexName,d.details typeName,d_b.details leverName,r.birth birth,r.shopNumber shopNumber,
+        r.nation nation,r.number number,r.phone phone
+        from  (SELECT * FROM room_details) AS d_a RIGHT JOIN members r on d_a.id=r.sex LEFT JOIN room_details d on d.id=r.type join (SELECT * FROM room_details) AS d_b  on d_b.id=r.lever
+        <if test="where!=null">where ${where}</if>
+        <if test="orderBy!=null">order by ${orderBy}</if>
+        <if test="offerset!=null">limit ${offerset},${countPerpage}</if>
+    </select>
+    <!--Integer delete(@Param("id") Integer id,@Param("shopNumber") Integer shopNumber);-->
+    <delete id="delete">
+        delete from members where id=#{id} and shopNumber=#{shopNumber}
+    </delete>
+    <!--Integer update(Member member);-->
+    <update id="update">
+        update members
+        set name=#{name},lever=#{lever},phone=#{phone},other=#{other}
+        WHERE shopNumber=#{shopNumber}
+            and id=#{id}
+    </update>
+    <!-- Integer getMemberCount(Integer shopNumber);-->
+    <select id="getMemberCount" resultType="java.lang.Integer">
+      select count(id) from members where shopNumber=#{shopNumber}
+    </select>
+</mapper>
