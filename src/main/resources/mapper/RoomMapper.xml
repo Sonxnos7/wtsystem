@@ -40,12 +40,13 @@
     <!--修改房间信息-->
     <update id="update" parameterType="vip.wente.wtsystem.entity.Room">
         update room
-        set roomNumber=#{roomNumber},roomState=#{roomState},standardPriceDay=#{standardPriceDay},vipPriceDay=#{vipPriceDay},roomType=#{roomType}
+        set roomNumber=#{roomNumber},roomState=#{roomState},standardPriceDay=#{standardPriceDay},vipPriceDay=#{vipPriceDay},roomType=#{roomType},roomAmount=#{roomAmount}
         WHERE shopNumber=#{shopNumber}
 
             and id=#{id}
 
     </update>
+
     <!--删除房间-->
     <!--Integer delete(Integer id,Integer shopNumber);-->
     <delete id="delete">

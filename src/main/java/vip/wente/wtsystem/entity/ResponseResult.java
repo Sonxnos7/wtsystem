@@ -10,7 +10,7 @@ package vip.wente.wtsystem.entity;
 public class ResponseResult<T> {
     public static final int STAT_OK=1;
     public static final int STAT_ERR=0;
-    private Integer state;
+    private Integer code;
     private String message;
     private T data;
 
@@ -18,32 +18,32 @@ public class ResponseResult<T> {
         super();
     }
 
-    public ResponseResult(Integer state) {
+    public ResponseResult(Integer code) {
         super();
-        this.state = state;
+        this.code = code;
     }
 
-    public ResponseResult(Integer state, String message) {
+    public ResponseResult(Integer code, String message) {
         super();
-        this.state = state;
+        this.code = code;
         this.message = message;
     }
 
-    public ResponseResult(Integer state, T data) {
+    public ResponseResult(Integer code, T data) {
         super();
-        this.state = state;
+        this.code = code;
         this.data = data;
     }
     public ResponseResult(Throwable throwable) {
         super();
-        this.state=STAT_ERR;
+        this.code=STAT_ERR;
         this.message=throwable.getMessage();
     }
     public Integer getState() {
-        return state;
+        return code;
     }
-    public void setState(Integer state) {
-        this.state = state;
+    public void setState(Integer code) {
+        this.code = code;
     }
     public String getMessage() {
         return message;
