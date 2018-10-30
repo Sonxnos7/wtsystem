@@ -86,6 +86,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/handle_login",method = RequestMethod.POST)
+    @ResponseBody
     public ResponseResult<Void> handle_login(String username, String password,HttpSession session){
         ResponseResult<Void> rr;
         Subject currentUser = SecurityUtils.getSubject();
