@@ -24,7 +24,7 @@
     <!--获取所有商品-->
     <!-- List<Goods> getAllGoods(@Param("where") String where, @Param("orderBy")String orderBy, @Param("offerset")Integer offerset, @Param("countPerpage")Integer countPerpage-->
     <select id="getAllGoods" resultType="vip.wente.wtsystem.entity.Goods">
-        select r.id id, r.name name, d_a.details typeName,d.details emName,r.price price,r.shopNumber shopNumber
+        select r.id id, r.name name, d_a.details typeName,d.details emName,r.price price,r.shopNumber shopNumber,r.amount amount
         from  (SELECT * FROM room_details) AS d_a RIGHT JOIN goods r on d_a.id=r.type LEFT JOIN room_details d on d.id=r.em
         <if test="where!=null">where ${where}</if>
         <if test="orderBy!=null">order by ${orderBy}</if>
@@ -37,9 +37,19 @@
     </delete>
     <!--Integer update(Good good);-->
     <!--修改商品信息-->
-    <update id="update">
+    <update id="update" parameterType="vip.wente.wtsystem.entity.Goods">
         update goods
         set name=#{name},type=#{type},price=#{price},em=#{em}
+        WHERE shopNumber=#{shopNumber}
+        <if test="id!=null">
+            and id=#{id}
+        </if>
+    </update>
+    <!-- Integer updateAmount(Goods goods);-->
+    <!--修改商品库存-->
+    <update id="updateAmount"  parameterType="vip.wente.wtsystem.entity.Goods">
+        update goods
+        set amount=amount+#{amount}
         WHERE shopNumber=#{shopNumber}
         <if test="id!=null">
             and id=#{id}

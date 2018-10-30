@@ -168,7 +168,7 @@
 			  <div class="span5 ">
 			   	  <label class="labelroomnumber">商品类别：</label>
 			      <select name="type" class="cboone inputone">
-		           <option th:value="${good.type}" th:text="${good.typeName}"></option>
+					  <option>--请选择--</option>
 					  <option th:each="ty:${list}" th:value="${ty.id}" th:text="${ty.details}">
 		          </select>
 			  </div>
@@ -190,7 +190,7 @@
 			  <div class="span5">
 			   	  <label class="labelroomnumber">计量单位：</label>
 			      <select name="em" class="cboone inputone">
-					  <option th:value="${good.em}" th:text="${good.emName}"></option>
+					  <option>--请选择--</option>
 					  <option th:each="ty:${titles}" th:value="${ty.id}" th:text="${ty.details}">
 		          </select>
 			  </div>

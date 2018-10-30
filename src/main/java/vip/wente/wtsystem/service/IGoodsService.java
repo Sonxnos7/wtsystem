@@ -56,4 +56,10 @@ public interface IGoodsService {
      * @return
      */
     Integer update(Goods goods);
+    /**
+     * 修改商品库存
+     * @param goods
+     * @return
+     */
+    Integer updateAmount(Goods goods);
 }

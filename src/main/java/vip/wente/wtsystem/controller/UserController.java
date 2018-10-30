@@ -86,7 +86,8 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/handle_login",method = RequestMethod.POST)
-    public String handle_login(String username, String password,HttpSession session){
+    public ResponseResult<Void> handle_login(String username, String password,HttpSession session){
+        ResponseResult<Void> rr;
         Subject currentUser = SecurityUtils.getSubject();
         if(!currentUser.isAuthenticated()){
             // 把用户名和密码封装为 UsernamePasswordToken 对象
@@ -103,14 +104,17 @@ public class UserController {
                     session.setAttribute("uid",uid);
                     session.setAttribute("uname",username);
                     session.setAttribute("shopNumber",shopNumber);
-                    return "redirect:/main/toMain";
+                    rr=new ResponseResult<Void>(1);
+                    return rr;
                 }
             }catch (IncorrectCredentialsException e) {
-                return "error";
+                rr=new ResponseResult<Void>(0);
+                return rr;
             }
 
         }
-        return "error";
+        rr=new ResponseResult<Void>(0);
+        return rr;
 
     }
     //处理修改用户密码业务

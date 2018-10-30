@@ -53,4 +53,9 @@ public class GoodsServiceImpl implements IGoodsService{
     public Integer update(Goods goods) {
         return goodsDao.update(goods);
     }
+    //进行商品库存管理
+    @Override
+    public Integer updateAmount(Goods goods) {
+        return goodsDao.updateAmount(goods);
+    }
 }
