@@ -1,5 +1,7 @@
 package vip.wente.wtsystem.entity;
 
+
+
 /**
  * @program: WtSystem
  * @description:
@@ -18,10 +20,12 @@ public class ResponseResult<T> {
         super();
     }
 
+
     public ResponseResult(Integer code) {
         super();
         this.code = code;
     }
+
 
     public ResponseResult(Integer code, String message) {
         super();
@@ -39,10 +43,12 @@ public class ResponseResult<T> {
         this.code=STAT_ERR;
         this.message=throwable.getMessage();
     }
-    public Integer getState() {
+
+
+    public Integer getCode() {
         return code;
     }
-    public void setState(Integer code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
     public String getMessage() {

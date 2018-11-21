@@ -34,6 +34,12 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
+    //跳转员工管理页面
+    @RequestMapping("/toStaffSet")
+    public String toSfaffSet(){
+        return "setting/staff";
+    }
+
     /**
      * 显示注册页面
      * @return
@@ -92,10 +98,10 @@ public class UserController {
         Subject currentUser = SecurityUtils.getSubject();
         if(!currentUser.isAuthenticated()){
             // 把用户名和密码封装为 UsernamePasswordToken 对象
-            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            UsernamePasswordToken access_token = new UsernamePasswordToken(username, password);
             try{
                 //登录认证 - 调用userRealm
-                currentUser.login(token);
+                currentUser.login(access_token);
                 // 判断当前用户是否登录
                 if (currentUser.isAuthenticated() == true) {
                     //用户id，酒店id放入session
@@ -105,16 +111,16 @@ public class UserController {
                     session.setAttribute("uid",uid);
                     session.setAttribute("uname",username);
                     session.setAttribute("shopNumber",shopNumber);
-                    rr=new ResponseResult<Void>(1);
+                    rr=new ResponseResult<Void>(0,"登陆成功");
                     return rr;
                 }
             }catch (IncorrectCredentialsException e) {
-                rr=new ResponseResult<Void>(0);
+                rr=new ResponseResult<Void>(1,"账号或密码错误");
                 return rr;
             }
 
         }
-        rr=new ResponseResult<Void>(0);
+        rr=new ResponseResult<Void>(1);
         return rr;
 
     }

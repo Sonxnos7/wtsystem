@@ -18,4 +18,22 @@ public class MainController {
     public String toMain(){
         return "main/main";
     }
+
+    // @RequestMapping("/toMain")
+    // public String toMain(){
+    //     return "main/main";
+    // }
+    // @RequestMapping("/toMain")
+    // public String toMain(){
+    //     return "main/main";
+    // }
+    // @RequestMapping("/toMain")
+    // public String toMain(){
+    //     return "main/main";
+    // }
+    // @RequestMapping("/toMain")
+    // public String toMain(){
+    //     return "main/main";
+    // }
+
 }

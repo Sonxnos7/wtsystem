@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import vip.wente.wtsystem.entity.Goods;
 import vip.wente.wtsystem.entity.GoodsStock;
 import vip.wente.wtsystem.entity.RoomDetails;
@@ -13,7 +12,6 @@ import vip.wente.wtsystem.service.IGoodsService;
 import vip.wente.wtsystem.service.IGoodsSrockService;
 import vip.wente.wtsystem.service.IRoomDetailsService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -33,12 +31,28 @@ public class commodityController {
     private IGoodsService goodsService;
     @Autowired
     private IGoodsSrockService goodsSrockService;
+
+    @RequestMapping("/toConsumption")//跳转商品消费页面
+    public String toConsumption(){
+        return "commodity/consumption";
+    }
+
+    @RequestMapping("/toInventory")//跳转库存管理页面
+    public String toInventory(){
+        return "commodity/inventory";
+    }
+
+    @RequestMapping("/toCommoditySet")//跳转商品管理页面
+    public String toCommoditySet(){
+        return "setting/commodity";
+    }
+
     @RequestMapping("/list")
     public String toList(HttpSession session,ModelMap map){
         Integer shopNumber=(Integer) session.getAttribute("shopNumber");
         List<Goods> list=goodsService.getAllGoods(shopNumber);
         map.addAttribute("list",list);
-        return "commodity/list";
+        return "consumption";
     }
     //显示添加商品种类页面
     @RequestMapping("/toAdd")
@@ -132,7 +146,7 @@ public class commodityController {
         List<Goods> list=goodsService.getGoodByName(shopNumber,name);
         System.out.println("搜到的商品数："+list.size());
         map.addAttribute("list",list);
-        return "commodity/list";
+        return "consumption";
     }
     //进行增加商品库存修改业务
     @RequestMapping("/changAmount")

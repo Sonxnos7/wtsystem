@@ -29,36 +29,42 @@ public class memberController {
     @Autowired
     private IRoomDetailsService roomDetailsService;
     @RequestMapping("/toList")
-    public String toList(HttpSession session, ModelMap map,Integer page){
-        Integer shopNumber=(Integer) session.getAttribute("shopNumber");
-        Integer count=memberService.getMemberCount(shopNumber);
-        //每页10条
-        Integer pages=(int)Math.ceil(count*1.0/ 1000);
-        map.addAttribute("totalPage",pages);
-        if(page==null||page<0) {
-            page=1;
-        }
-        //判断page的值是否在最大值范围内
-        if(page>pages) {
-            page=pages;
-        }
-        map.addAttribute("indexPage",page);
-        Integer offset=(page-1)*1000;
-        List<Member> list=memberService.getAllMembers(shopNumber,offset,1000);
-        map.addAttribute("list",list);
-        return "member/list";
+    public String toList(){
+        return "member/managementMem";
     }
+    // public String toList(HttpSession session, ModelMap map,Integer page){
+    //     Integer shopNumber=(Integer) session.getAttribute("shopNumber");
+    //     Integer count=memberService.getMemberCount(shopNumber);
+    //     //每页10条
+    //     Integer pages=(int)Math.ceil(count*1.0/ 1000);
+    //     map.addAttribute("totalPage",pages);
+    //     if(page==null||page<0) {
+    //         page=1;
+    //     }
+    //     //判断page的值是否在最大值范围内
+    //     if(page>pages) {
+    //         page=pages;
+    //     }
+    //     map.addAttribute("indexPage",page);
+    //     Integer offset=(page-1)*1000;
+    //     List<Member> list=memberService.getAllMembers(shopNumber,offset,1000);
+    //     map.addAttribute("list",list);
+    //     return "member/managementMen";
+    // }
     //显示添加页面
     @RequestMapping("/toAdd")
-    public String toadd(ModelMap map){
-        List<RoomDetails> type1=roomDetailsService.getByRoomType(7);
-        List<RoomDetails> type2=roomDetailsService.getByRoomType(5);
-        List<RoomDetails> type3=roomDetailsService.getByRoomType(6);
-        map.addAttribute("type1",type1);
-        map.addAttribute("type2",type2);
-        map.addAttribute("type3",type3);
-        return "member/add";
+    public String toAdd(){
+        return "member/newMem";
     }
+    // public String toadd(ModelMap map){
+    //     // List<RoomDetails> type1=roomDetailsService.getByRoomType(7);
+    //     // List<RoomDetails> type2=roomDetailsService.getByRoomType(5);
+    //     // List<RoomDetails> type3=roomDetailsService.getByRoomType(6);
+    //     // map.addAttribute("type1",type1);
+    //     // map.addAttribute("type2",type2);
+    //     // map.addAttribute("type3",type3);
+    //     return "member/newMem";
+    // }
     //显示修改会员页面
     @RequestMapping("/toUpdate")
     public String toUpdate(ModelMap map,Integer id,HttpSession session){

@@ -30,6 +30,25 @@ public class RoomController {
     private IRoomService roomService;
     @Autowired
     private IRoomDetailsService roomDetailsService;
+
+    //跳转新增预订页面
+    @RequestMapping("/toNewRes")
+    public String toNewRes(){
+        return "reservation/newRes";
+    }
+
+    //跳转查看预订页面
+    @RequestMapping("/toListRes")
+    public String toListRes(){
+        return "reservation/listRes";
+    }
+
+    //跳转房间设置页面
+    @RequestMapping("/toRoomSet")
+    public String toRoomSet(){
+        return "setting/room";
+    }
+
     //显示添加房间页面
     @RequestMapping("/add")
     public String showAdd(ModelMap map){
